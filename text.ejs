@@ -1,0 +1,30 @@
+var express = require("express");
+var app = express();
+
+app.use(express.static("public"));
+
+app.listen(process.env.PORT, process.env.IP, function(){
+    console.log("server started !!");
+});
+
+app.get("/", function(req, res){
+    var text = [
+    {title : "P1", author : "Abhay"},
+    {title : "P1", author : "Abhay"},
+    {title : "P1", author : "Abhay"},
+    ];
+    res.render("html.ejs", {content: text});
+});
+
+app.get("/login", function(req, res){
+    res.send("THis is test data inside /login");
+});
+
+app.get("/login/:name", function(req, res){
+    var Author = req.params.name;
+    res.render("html_login.ejs", {name: Author});
+});
+
+app.get("*", function(req, res){
+    res.send("Page loading error Pls Check your URL..");
+});
